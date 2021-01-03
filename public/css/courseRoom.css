@@ -1,0 +1,32 @@
+.message-input {
+    display: inline;
+    width: 400px;
+    height: 40px;
+    margin: 0px;
+    padding: 0px;
+    font-size: 30px;
+}
+.message-box {
+    width: 400px;
+    font-size: 30px;
+}
+.sender-message-container {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0px;
+}
+.sender-message {
+    display: flex;
+    justify-content: flex-end;
+    width: 350px;
+    margin: 0px;
+}
+.reciever-message {
+    display: flex;
+    justify-content: flex-start;
+    width: 350px;
+}
+
+p {
+    margin: 0px;
+}

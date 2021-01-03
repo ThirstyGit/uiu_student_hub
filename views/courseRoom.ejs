@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" type="text/css" href="../css/courseRoom.css">
+   <!-- Should be subject name -->
+   <title>Course Room</title>
+</head>
+<body>
+   <h1>Welcome to our course room</h1>
+   <a href="/"><h3>Home Page</h3></a>
+   <div>
+      <div class="message-container">
+        <div class="message-box">
+            <%posts.forEach(post => {%>
+               <%if(post.user_id === user.id) {%>
+                  <div class="sender-message-container">
+                     <div class="sender-message">
+                        <p><%=post.chat%></p>
+                     </div>
+                  </div>
+               <%} else {%>
+                  <div class="reciver-message">
+                     <p><%=post.chat%></p>
+                  </div>
+               <%}%>
+            <%})%>
+        </div>
+        <input type="text" class="message-input">
+    </div>
+   </div>
+   <script src="/socket.io/socket.io.js"></script>
+   <script type="text/javascript" src="../js/courseRoom.js"></script>
+</body>
+</html>

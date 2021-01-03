@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+   <link rel="stylesheet" type="text/css" href="css/posts.css">
+</head>
+<body>
+   <a href="/"><h2>Main page</h2></a>
+   <!-- Searching for posts -->
+   <div class="search-bar-container">
+      <input type="text" class="search-bar" placeholder="search for a post">
+   </div>
+   <div class="filter">
+      <select id="semester">
+         <%semesters.forEach(semester => {%>
+            <option value="<%=semester%>"><%=semester%></option>
+         <%})%>
+      </select>
+      <select id="courses">
+         <%courses.forEach(course => {%>
+            <option value="<%=course.course_code%>"><%=course.course_name%></option>
+         <%})%>
+      </select>
+   </div>
+   <!-- Showing the posts -->
+   <div id="all-posts">
+      <%posts.forEach(post => {%>
+         <a href="/posts/<%=post.id%>"><h3><%=post.title%></h3></a>
+      <%})%>
+   </div>
+   <script type="text/javascript" src="js/posts.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Student Forum</title>
+</head>
+<body>
+   <%=course%>
+   <a href="/<%=course%>/createpost"><button>CREATE POST</button></a>
+   <%result.forEach(data => {%>
+      <a href="/posts/<%=data.post_id%>"><p><%=data.title%></p></a>
+   <%})%>
+</body>
+</html>

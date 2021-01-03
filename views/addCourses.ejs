@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+<body>
+   <form action="/admin/addcourses" method="post">
+      <!-- This should be able to add many courses.
+            courses will be added to a cookie with
+            add button instead of submitting.
+            There will be an extra submit button
+            at that time.-->
+      <label>Course Code</label>
+      <input name="courseCode" type="text">
+      <label>Course Name</label>
+      <input name="courseName" type="text">
+      <button type="submit">Add course</button>
+   </form>
+</body>
+</html>

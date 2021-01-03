@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="../css/createpost.css">
+   <title>Document</title>
+</head>
+<body>
+   <a href="/">Main Page</a>
+   <form action="/createpost" method="POST">
+      <input type="text" name="title">
+      <textarea id="post" name="post" rows="20" cols="50"></textarea>
+      <select name="course_code">
+         <%courses.forEach(course => {%>
+            <option value="<%=course.course_code%>"><%=course.course_name%></option>
+         <%})%>
+      </select>
+      <button type="submit">POST</button>
+   </form>
+   <a href="/"><button>Go Back</button></a>
+</body>
+</html>

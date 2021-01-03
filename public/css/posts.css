@@ -1,0 +1,14 @@
+.search-bar {
+    width: 95%;
+    height: 40px;
+    font-size: 30px;
+}
+
+.search-bar-container {
+    display: flex;
+    justify-content: center;
+}
+
+.hidden {
+    display: none;
+}

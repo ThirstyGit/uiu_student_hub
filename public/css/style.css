@@ -1,0 +1,28 @@
+body{
+    background: linear-gradient(to right, #6190e8, #a7bfe8);
+    font-family: 'Roboto', sans-serif;
+}
+button {
+    width: 280px;
+    height: 50px;
+    background-color: #26cc6e;
+    outline: none;
+    border: 0px;
+    font-size: 25px;
+    color: #274238;
+    margin: 30px;
+    font-weight: bold;
+}
+button:hover{
+    background-color: #40e286;
+    cursor: pointer;
+}
+
+.color-green {
+    color:green;
+}
+
+.color-teal {
+    color:teal;
+}
+

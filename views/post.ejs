@@ -1,0 +1,35 @@
+<DOCTYPE html>
+<html>
+   <head>
+      <title>A Post</title>
+      <style>
+         p {
+            white-space: pre-line;
+            white-space: pre-wrap;
+         }
+         textarea {
+            resize: none;
+         }
+      </style>
+   </head>
+   <body>
+         <a href="/"><h3>Main page</h3></a>
+         <a href="/posts"><h3>View all posts</h3></a>
+         <h2><%=post.title%></h2>
+         <h3><%=post.time.toDateString()%></h3>
+         <p><%=post.content%></p>
+         <form action="/posts/:id/createcomment" method="POST">
+            <textarea name="comment_content" rows="10" cols="70"></textarea>
+            <input type="text" id="post_id" name="post_id" value="<%=post.id%>" hidden>
+            <input type="text" id="user_id" name="user_id" value="<%=post.user_id%>" hidden>
+            <button type="submit">comment</button>
+         </form>
+         <div id="comment-container">
+            <%comments.forEach(comment => {%>
+               <h3><%=comment.name%></h3>
+               <p><%=comment.time.toDateString()%> <%=comment.time.getHours()%>:<%=comment.time.getMinutes()%></p>
+               <p><%=comment.content%></p>
+            <%})%>
+         </div>
+   <body>
+</html>
