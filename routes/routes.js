@@ -3,6 +3,7 @@ const router = require('express').Router();
 const path = require('path');
 const db = require('../database/database.js');
 const loginRequired = require('../middlewares/verify').loginRequired;
+const enrolled = require('../middlewares/verify').enrolled;
 
 
 // Setting a current Semester for testing which the admin can change in the future.
@@ -129,7 +130,7 @@ router.post('/posts/:id/createcomment', (req, res) => {
 });
 
 
-router.get('/course/:id', loginRequired, (req, res) => {
+router.get('/course/:id', loginRequired, enrolled, (req, res) => {
    const sql = `SELECT * FROM room_posts WHERE course_code = ${db.escape(req.params.id.replace(/_/g, ' '))}`;
    db.query(sql, (err, result) => {
       if(err) {
@@ -139,6 +140,16 @@ router.get('/course/:id', loginRequired, (req, res) => {
       else {
          res.render(path.join(__dirname + '/../' + '/views/courseRoom.ejs'), {posts: result, user: req.user});
       }
+   })
+})
+
+router.get('/course/:id/enroll', (req, res) => {
+   const sql = `INSERT INTO users_courses VALUES(${req.user.id}, ${db.escape(req.params.id.replace(/_/g, ' '))})`;
+   db.query(sql, (err, result) => {
+      if(err) {
+         console.log(err)
+      }
+      res.redirect('/');
    })
 })
 

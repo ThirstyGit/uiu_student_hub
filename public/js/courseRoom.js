@@ -1,8 +1,22 @@
+// Element selecting.
 const message = document.querySelector('.message-box');
 const messageInput = document.querySelector('.message-input');
+const enrollCourse = document.querySelector('#enroll-course')
+
+
+// Declarations.
 const socket = io();
 const courseCode = window.location.href.split('/')[4].replace('_', ' ');
 
+
+// Enrolling to a new course.
+enrollCourse.addEventListener('click', () => {
+    console.log('enrolled');
+    window.location.href = window.location.href + '/enroll';
+})
+
+
+// Message part.
 const addSentMessage = (msg) => {
     const text  = document.createElement('p');
     const newMessage  = document.createElement('div');
@@ -34,10 +48,11 @@ messageInput.addEventListener('keyup', (event)=> {
     }
 });
 
-// console.log(courseCode);
+
 socket.emit('join', courseCode);
 
 socket.on('chat', msg => {
    addRecivevedMessage(msg);
 })
+
 
