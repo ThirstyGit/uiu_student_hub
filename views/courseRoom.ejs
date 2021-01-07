@@ -8,27 +8,39 @@
    <title>Course Room</title>
 </head>
 <body>
-   <h1>Welcome to our course room</h1>
-   <a href="/"><h3>Home Page</h3></a>
    <div>
-      <div class="message-container">
-        <div class="message-box">
-            <%posts.forEach(post => {%>
-               <%if(post.user_id === user.id) {%>
-                  <div class="sender-message-container">
-                     <div class="sender-message">
+      <%if(user.type === "admin" || moderator) {%>
+         <button id="moderate">Moderate</button>
+      <%}%>
+      <%if(status === true || status === "moderator") {%>
+         <h1>Welcome to our course room</h1>
+         <a href="/"><h3>Home Page</h3></a>
+         <div class="message-container">
+            <div class="message-box">
+               <%posts.forEach(post => {%>
+                  <%if(post.user_id === user.id) {%>
+                     <div class="sender-message-container">
+                        <div class="sender-message">
+                           <p><%=post.chat%></p>
+                        </div>
+                     </div>
+                  <%} else {%>
+                     <div class="reciver-message">
                         <p><%=post.chat%></p>
                      </div>
-                  </div>
-               <%} else {%>
-                  <div class="reciver-message">
-                     <p><%=post.chat%></p>
-                  </div>
-               <%}%>
-            <%})%>
-        </div>
-        <input type="text" class="message-input">
-    </div>
+                  <%}%>
+               <%})%>
+            </div>
+            <input type="text" class="message-input">
+         </div>
+      <%} else if(status === "applied") {%>
+         <h1>Please wait for moderators to accept.</h1>
+         <a href="/"><button>Home</button></a>
+      <%} else {%>
+         <h1>Would you like to enroll to this page?</h1>
+         <button id="enroll-course">Yes</button>
+         <a href="/"><button>No</button></a>
+      <%}%>
    </div>
    <script src="/socket.io/socket.io.js"></script>
    <script type="text/javascript" src="../js/courseRoom.js"></script>

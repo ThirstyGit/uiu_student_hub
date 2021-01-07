@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+<body>
+   <%if(user.type === "admin") {%>
+      <button id="show-moderators"><h3>moderators</h3></button>
+      <button id="show-users"><h3>users</h3></button>
+   <%}%>
+   <a href="/"><h1>Home</h1></a>
+   <%request.forEach(req => {%>
+      <h3><%=req.user_id%></h3>
+      <h3><%=req.course_code%></h3>
+      <form action="/moderate" method="POST" class="form">
+         <input name="user_id" value="<%=req.user_id%>" hidden>
+         <input name="course_code" value="<%=req.course_code%>" hidden>
+         <button type="submit">Accept</button>
+      </form>
+      <form action="/moderate" method="POST" class="form">
+         <input name="user_id" value="<%=req.user_id%>" hidden disabled>
+         <input name="course_code" value="<%=req.course_code%>" hidden disabled>
+         <button type="submit">Decline</button>
+      </form>
+      <%})%>
+      <script type="text/javascript" src="../../../js/moderate.js"></script>
+</body>
+</html>

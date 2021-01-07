@@ -11,8 +11,6 @@ const adminRoutes = require('./routes/adminRoutes.js');
 const authRoutes = require('./routes/authRoutes.js');
 const api = require('./routes/api.js');
 const authenticate = require('./middlewares/verify').authenticate;
-const db = require('./database/database.js');
-const verify = require('./middlewares/verify.js')
 
 // Setting up app
 app.use(express.urlencoded({extended: true}));
@@ -44,16 +42,7 @@ app.use('/api', api);
 // Socket.io connection
 io.on('connection', socket => {
    socket.on('message', data => {
-      const sql = `INSERT INTO room_posts(course_code, user_id, chat, time)
-                  VALUES(${db.escape(data.room)}, ${user.id}, ${db.escape(data.message)}, now())`;
-      db.query(sql, (err, result) => {
-         if(err) {
-            console.log(err)
-         }
-         else {
-            socket.to(data.room).emit("chat", data.message);
-         }
-      })
+      socket.to(data.room).emit("chat", {message: data.message, id: data.id});
    })
    socket.on('join', room => {
       socket.join(room);

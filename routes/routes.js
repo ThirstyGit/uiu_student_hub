@@ -3,6 +3,12 @@ const router = require('express').Router();
 const path = require('path');
 const db = require('../database/database.js');
 const loginRequired = require('../middlewares/verify').loginRequired;
+const enrolled = require('../middlewares/verify').enrolled;
+
+// Testing
+router.get('/ajax', (req, res) => {
+   res.render(path.join(__dirname + '/../') + 'views/ajax.ejs');
+})
 
 
 // Setting a current Semester for testing which the admin can change in the future.
@@ -15,7 +21,11 @@ router.get('/', (req, res)=> {
       if(err) {
          console.log(err);
       }
-      res.render(path.join(__dirname + '/../') + 'views/index.ejs', {result});
+      let user = undefined;
+      if((req.session && req.session.userId)) {
+         user = req.user;
+      }
+      res.render(path.join(__dirname + '/../') + 'views/index.ejs', {result, user});
    })
 });
 
@@ -129,7 +139,7 @@ router.post('/posts/:id/createcomment', (req, res) => {
 });
 
 
-router.get('/course/:id', loginRequired, (req, res) => {
+router.get('/course/:id', loginRequired, enrolled, (req, res) => {
    const sql = `SELECT * FROM room_posts WHERE course_code = ${db.escape(req.params.id.replace(/_/g, ' '))}`;
    db.query(sql, (err, result) => {
       if(err) {
@@ -138,6 +148,102 @@ router.get('/course/:id', loginRequired, (req, res) => {
       }
       else {
          res.render(path.join(__dirname + '/../' + '/views/courseRoom.ejs'), {posts: result, user: req.user});
+      }
+   })
+})
+
+router.post('/course/:id', (req, res) => {
+   const sql = `INSERT INTO room_posts(course_code, user_id, chat, time)
+                  VALUES(${db.escape(req.params.id).replace(/_/g, ' ')}, ${db.escape(req.user.id)}, ${db.escape(req.body.chat)}, now())`;
+      db.query(sql, (err, result) => {
+         if(err) {
+            console.log(err)
+         }
+      })
+});
+
+router.get('/course/:id/enroll', loginRequired, (req, res) => {
+   const sql = `INSERT INTO users_courses(user_id, course_code) VALUES(${req.user.id}, ${db.escape(req.params.id.replace(/_/g, ' '))})`;
+   db.query(sql, (err, result) => {
+      if(err) {
+         console.log(err)
+      }
+      res.redirect('/');
+   })
+})
+
+router.get('/course/:id/moderate', loginRequired, (req, res) => {
+   const sql = `SELECT * FROM users_courses WHERE course_code = ${db.escape(req.params.id).replace(/_/g, ' ')} && status = "applied"`;
+   db.query(sql, (err, result) => {
+      if(err) {
+         console.log(err)
+      }
+      res.render(path.join(__dirname + '/../' + '/views/moderate.ejs'), {request: result});
+   })
+})
+
+router.post("/moderate", (req, res) => {
+   const sql = `UPDATE users_courses SET status = "enrolled" WHERE user_id = ${db.escape(req.body.user_id)} && course_code = ${db.escape(req.body.course_code)}`;
+   db.query(sql, (err, result) => {
+      if(err) {
+         console.log(err);
+      }
+   });
+   res.redirect(`/course/${req.body.course_code}/moderate`);
+})
+
+router.get("/course/:id/moderate/users", loginRequired, (req, res) => {
+   const sql = `SELECT * FROM users_courses AS uc
+   JOIN users AS u
+   ON uc.user_id = u.id
+   WHERE uc.course_code = ${db.escape(req.params.id).replace(/_/g, ' ')}`;
+   db.query(sql, (err, result) => {
+      // console.log(result);
+      res.render(path.join(__dirname + '/../' + '/views/moderateUsers.ejs'), {users: result, course_id: req.params.id});
+   })
+})
+
+router.post("/course/:id/moderate/addmoderate", (req, res) => {
+   const sql = `INSERT INTO courses_moderators(course_code, user_id) VALUES(${db.escape(req.params.id).replace(/_/g, ' ')}, ${req.body.id})`;
+   db.query(sql, (err, result) => {
+      if(err) {
+         console.log(err);
+         res.send("ERROR!");
+      }
+      else {
+         res.redirect(`/`)
+      }
+   })
+})
+
+router.post("/course/:id/moderate/removemoderate", (req, res) => {
+   const sql = `DELETE FROM courses_moderators WHERE course_code = ${db.escape(req.params.id).replace(/_/g, ' ')} && user_id = ${req.body.id}`;
+   db.query(sql, (err, result) => {
+      if(err) {
+         console.log(err);
+         res.send("ERROR!");
+      }
+      else {
+         res.redirect(`/`)
+      }
+   })
+})
+
+router.get("/course/:id/moderate/moderators", loginRequired, (req, res) => {
+   const sql = `SELECT * FROM users_courses AS uc
+   JOIN users AS u
+   ON uc.user_id = u.id
+   WHERE uc.course_code = ${db.escape(req.params.id).replace(/_/g, ' ')}
+   && uc.user_id IN (
+      SELECT user_id FROM courses_moderators WHERE course_code = ${db.escape(req.params.id).replace(/_/g, ' ')}
+   )`;
+   db.query(sql, (err, result) => {
+      if(err) {
+         console.log(err);
+         res.redirect('/');
+      }
+      else {
+         res.render(path.join(__dirname + '/../' + '/views/moderateUsers.ejs'), {users: result, course_id: db.escape(req.params.id)});
       }
    })
 })
