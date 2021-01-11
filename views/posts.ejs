@@ -3,27 +3,37 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Document</title>
-   <link rel="stylesheet" type="text/css" href="css/posts.css">
+   <title>All posts</title>
+   <link rel="stylesheet" type="text/css" href="/css/posts.css">
+   <link rel="stylesheet" type="text/css" href="/css/style.css">
+   <link rel="preconnect" href="https://fonts.gstatic.com">
+   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
    <a href="/"><h2>Main page</h2></a>
    <!-- Searching for posts -->
-   <div class="search-bar-container">
-      <input type="text" class="search-bar" placeholder="search for a post">
+   <div class="search-container">
+      <div class="search-bar-container">
+         <input type="text" class="search-bar" placeholder="search for a post">
+      </div>
+      <div class="filter">
+         <%if(semesters.length) {%>
+            <select id="courses">
+               <%courses.forEach(course => {%>
+                  <option value="<%=course.course_code%>"><%=course.course_name%></option>
+               <%})%>
+            </select>
+            <select id="semester">
+               <%semesters.forEach(semester => {%>
+                  <option value="<%=semester%>"><%=semester%></option>
+               <%})%>
+            </select>
+         <%} else {%>
+            <h1>No Posts Found!</h1>
+         <%}%>
+      </div>
    </div>
-   <div class="filter">
-      <select id="semester">
-         <%semesters.forEach(semester => {%>
-            <option value="<%=semester%>"><%=semester%></option>
-         <%})%>
-      </select>
-      <select id="courses">
-         <%courses.forEach(course => {%>
-            <option value="<%=course.course_code%>"><%=course.course_name%></option>
-         <%})%>
-      </select>
-   </div>
+   
    <!-- Showing the posts -->
    <div id="all-posts">
       <%posts.forEach(post => {%>

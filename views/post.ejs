@@ -2,15 +2,10 @@
 <html>
    <head>
       <title>A Post</title>
-      <style>
-         p {
-            white-space: pre-line;
-            white-space: pre-wrap;
-         }
-         textarea {
-            resize: none;
-         }
-      </style>
+      <link rel="stylesheet" type="text/css" href="/css/post.css">
+      <link rel="stylesheet" type="text/css" href="/css/style.css">
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
    </head>
    <body>
          <a href="/"><h3>Main page</h3></a>
@@ -19,7 +14,7 @@
          <h3><%=post.time.toDateString()%></h3>
          <p><%=post.content%></p>
          <form action="/posts/:id/createcomment" method="POST">
-            <textarea name="comment_content" rows="10" cols="70"></textarea>
+            <textarea name="comment_content" rows="10" cols="70" class="comment-box"></textarea>
             <input type="text" id="post_id" name="post_id" value="<%=post.id%>" hidden>
             <input type="text" id="user_id" name="user_id" value="<%=post.user_id%>" hidden>
             <button type="submit">comment</button>

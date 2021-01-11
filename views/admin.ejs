@@ -4,9 +4,14 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Document</title>
+   <link rel="stylesheet" type="text/css" href="/css/admin.css">
+   <link rel="stylesheet" type="text/css" href="/css/style.css">
+   <link rel="preconnect" href="https://fonts.gstatic.com">
+   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
-   <form action="/admin/addcourses" method="post">
+   <a href="/"><h2>Home</h2></a>
+   <form action="/admin/addcourses" method="post" class="form">
       <!-- This should be able to add many courses.
             courses will be added to a cookie with
             add button instead of submitting.
@@ -18,7 +23,6 @@
       <input name="courseName" type="text">
       <button type="submit">Add course</button>
    </form>
-   <a href="/"><h2>Home</h2></a>
    <script type="text/javascript" src="js/admin.js"></script>
 </body>
 </html>

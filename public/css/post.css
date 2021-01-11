@@ -1,0 +1,11 @@
+p {
+   white-space: pre-wrap;
+}
+
+.comment-box {
+   font-size: 20px;
+   width: 600px;
+   resize: none;
+}
+
+

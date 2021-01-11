@@ -1,0 +1,55 @@
+body {
+   margin: 0px;
+}
+
+ul {
+   cursor: pointer;
+}
+
+ul li {
+   display: inline-block;
+   margin:0px 15px;
+   font-size: 20px;
+   font-weight: 1000;
+   cursor: pointer;
+}
+
+a:hover {
+   color: rgba(0, 0, 0, 0.5);
+}
+
+.sidebar{
+   background-color: rgb(22, 173, 102);
+   height: 100%;
+   width: 350px;
+   position: fixed;
+   margin: 0px 0px 0px 0px;
+   transition: 0.3s;
+}
+
+.sidebar-open{
+   left: 0px;
+}
+.sidebar-close{
+   left: -500px;
+}
+
+.hamburger {
+   position: absolute;
+   margin: 0px;
+   z-index: 1;
+   cursor: pointer;
+}
+
+nav {
+   display: inline-block;
+   background-color: rgb(32, 182, 132);
+   margin: 0px;
+   display: flex;
+   justify-content: space-between;
+}
+
+.button {
+   display: inline-block;
+}
+

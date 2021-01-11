@@ -1,14 +1,24 @@
+option, select {
+    font-size: 20px;
+    height: 40px;
+    width: 100%;
+}
+
+body {
+    margin: 0px;
+}
+
+.filter {
+    display: flex;
+}
+
 .search-bar {
-    width: 95%;
+    width: 100%;
     height: 40px;
     font-size: 30px;
 }
 
-.search-bar-container {
+.search-container {
     display: flex;
-    justify-content: center;
-}
-
-.hidden {
-    display: none;
+    flex-direction: column;
 }

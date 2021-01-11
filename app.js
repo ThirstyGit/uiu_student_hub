@@ -42,7 +42,7 @@ app.use('/api', api);
 // Socket.io connection
 io.on('connection', socket => {
    socket.on('message', data => {
-      socket.to(data.room).emit("chat", {message: data.message, id: data.id});
+      socket.to(data.room).emit("chat", {message: data.message, user: data.user});
    })
    socket.on('join', room => {
       socket.join(room);

@@ -7,7 +7,7 @@ function filterResults(str) {
    while(posts.firstElementChild) {
       posts.removeChild(posts.firstElementChild);
    }
-   fetch(`http://localhost:3000/api/getpost/${str}`)
+   fetch(`/api/getpost/${str}`)
    .then(res => {
       res.json().then(datas => {
          // <a href="/posts/<%=post.id%>"><h3><%=post.title%></h3></a>

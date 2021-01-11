@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const db = require('../database/database.js')
+const db = require('../database/database.js');
+const { loginRequired } = require('../middlewares/verify.js');
 
 router.get('/getpost', (req, res) => {
    const sql = `SELECT * FROM POSTS`;
@@ -29,5 +30,9 @@ router.get('/getpost/:title', (req, res) => {
    })
 })
 
+
+router.get('/getuser', loginRequired, (req, res) => {
+   res.send(req.user);
+})
 
 module.exports = router;

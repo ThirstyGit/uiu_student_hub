@@ -1,7 +1,8 @@
 body{
-    background: linear-gradient(to right, #6190e8, #a7bfe8);
+    background: linear-gradient(to right, #348f50, #56b4d3);
     font-family: 'Roboto', sans-serif;
 }
+
 button {
     width: 280px;
     height: 50px;
@@ -18,11 +19,26 @@ button:hover{
     cursor: pointer;
 }
 
+input {
+    width: 450px;
+    height: 40px;
+    font-size: 30px;
+}
+
+a {
+    color:rgb(0, 0, 0);
+    text-decoration: none;
+}
+
 .color-green {
     color:green;
 }
 
 .color-teal {
     color:teal;
+}
+
+.hidden {
+    display: none;
 }
 

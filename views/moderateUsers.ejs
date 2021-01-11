@@ -4,22 +4,28 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Document</title>
+   <link rel="stylesheet" type="text/css" href="/css/style.css">
+   <link rel="preconnect" href="https://fonts.gstatic.com">
+   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
-   <a href="/">HOME</a>
+   <a href="/"><button>HOME</button></a>
    <div>
       <% users.forEach( user => { %>
          <h3><%=user.name%></h3>
-         <form action="/course/<%=course_id%>/moderate/addmoderate" method="POST">
-            <input value="<%=user.user_id%>" name="id" hidden>
-            <button>ADD MODERATOR</button>
-         </form>
-         <form action="/course/<%=course_id%>/moderate/removemoderate" method="POST">
-            <input value="<%=user.user_id%>" name="id" hidden>
-            <button>REMOVE MODERATOR</button>
-         </form>
+         <%if(user.moderator === 'false') {%>
+            <form action="/course/<%=course_id%>/moderate/addmoderate" method="POST">
+               <input value="<%=user.user_id%>" name="id" hidden>
+               <button>ADD MODERATOR</button>
+            </form>
+         <%} else {%>
+            <form action="/course/<%=course_id%>/moderate/removemoderate" method="POST">
+               <input value="<%=user.user_id%>" name="id" hidden>
+               <button class="remove-users">REMOVE MODERATOR</button>
+            </form>
+         <%}%>
       <%})%>
    </div>
-   
+   <link rel="stylesheet" type="text/css" href="/css/moderateUsers.css">
 </body>
 </html>

@@ -6,6 +6,9 @@
    <link rel="stylesheet" type="text/css" href="../css/courseRoom.css">
    <!-- Should be subject name -->
    <title>Course Room</title>
+   <link rel="stylesheet" type="text/css" href="/css/style.css">
+   <link rel="preconnect" href="https://fonts.gstatic.com">
+   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
    <div>
@@ -13,8 +16,8 @@
          <button id="moderate">Moderate</button>
       <%}%>
       <%if(status === true || status === "moderator") {%>
+         <a href="/"><button>Home Page</button></a>
          <h1>Welcome to our course room</h1>
-         <a href="/"><h3>Home Page</h3></a>
          <div class="message-container">
             <div class="message-box">
                <%posts.forEach(post => {%>
@@ -25,8 +28,9 @@
                         </div>
                      </div>
                   <%} else {%>
-                     <div class="reciver-message">
-                        <p><%=post.chat%></p>
+                     <div class="recieved-message-container">
+                        <p class="recieved-user"><%=post.name%></p>
+                        <p class="recieved-message"><%=post.chat%></p>
                      </div>
                   <%}%>
                <%})%>

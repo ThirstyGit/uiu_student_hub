@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>My Page</title>
+   <link rel="stylesheet" type="text/css" href="/css/style.css">
+   <link rel="stylesheet" type="text/css" href="/css/user.css">
+   <link rel="preconnect" href="https://fonts.gstatic.com">
+   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+   <div class="button-container">
+      <a href="/"><button>HOME</button></a>
+      <button id="my-info">My Info</button>
+      <button id="my-posts">My Posts</button>
+      <button id="change-info">Change Info</button>
+      <button id="change-password">Change Password</button>
+   </div>
+   <div class="main-body">
+      <div class="user-info-container">
+         <%if(userInfo.length) {%>
+            <h3>Enrolled Courses</h3>
+            <ol>
+               <%userInfo.forEach(user => {%>
+                  <%if(user.status === "enrolled") {%>
+                     <li>
+                        <a href="/course/<%=user.course_code.replace(/ /g, '_')%>"><p class="course"><%=user.course_name%></p></a>
+                     </li>
+                  <%}%>
+               <%})%>
+            </ol>
+            <h3>Applied Courses</h3>
+            <ol>
+               <%userInfo.forEach(user => {%>
+                  <%if(user.status === "applied") {%>
+                     <li>
+                        <p class="course"><%=user.course_name%></p>
+                     </li>
+                  <%}%>
+               <%})%>
+            </ol>
+            <h3>Banned Courses</h3>
+            <ol>
+               <%userInfo.forEach(user => {%>
+                  <%if(user.status === "banned") {%>
+                     <li>
+                        <p class="course"><%=user.course_name%></p>
+                     </li>
+                  <%}%>
+               <%})%>
+            </ol>
+         <%} else {%>
+            <h1>You have not applied to any course.</h1>
+         <%}%>
+         <h3>Name: <%=user.name%></h3>
+         <h3>Email: <%=user.email%></h3>
+         <h3>phone: <%=user.phone%></h3>
+         <h3>Department: <%=user.department%></h3>
+         <h3>DOB: <%=user.dob.toJSON().slice(0,10)%></h3>
+         <h3>Points: <%=user.points%></h3>
+      </div>
+      <div class="my-posts-container hidden">
+         <%posts.forEach(post => {%>
+            <a href="/posts/<%=post.id%>"><h3><%=post.title%></h3></a>
+         <%})%>
+      </div>
+      <div class="form info-change-container hidden">
+         <form action="/user" method="PUT" class="form" id="user-form">
+            <label>Name: </label>
+            <input type="text" name="name" id="name" value="<%=user.name%>">
+            <label>Email: </label>
+            <input type="email" name="email" id="email" value="<%=user.email%>">
+            <label>Phone: </label>
+            <input type="text" name="phone" id="phone" value="<%=user.phone%>">
+            <label>Date Of Birth: </label>
+            <input type="date" name="dob" id="dob" value="<%=user.dob.toJSON().slice(0,10)%>">
+            <button class="change-button">Change personal information</button>
+         </form>
+      </div>
+      <div class="form password-change-container hidden">
+         <form action="/changepassword" method="PUT" class="form" id="password-form">
+            <label>Password: </label>
+            <input type="password" name="password" id="password">
+            <label>Password Confirm: </label>
+            <input type="password" name="confirm-password" id="confirm-password">
+            <button>Change Password</button>
+         </form>
+      </div>
+   </div>
+   <script type="text/javascript" src="../js/user.js"></script>
+</body>
+</html>

@@ -10,8 +10,6 @@ const socket = io();
 const courseCode = window.location.href.split('/')[4].replace('_', ' ');
 
 
-
-
 // Enrolling to a new course.
 if(enrollCourse) {
     enrollCourse.addEventListener('click', () => {
@@ -45,10 +43,15 @@ if(messageInput) {
     }
 
     const addRecivevedMessage = (msg) => {
+        const user = document.createElement('p');
         const text  = document.createElement('p');
         const textContainer  = document.createElement('div');
-        textContainer.classList.add("reciver-message");
-        text.innerText = `${msg}`;
+        user.innerText = msg.user;
+        textContainer.classList.add("recieved-message-container");
+        user.classList.add('recieved-user')
+        text.classList.add('recieved-message')
+        text.innerText = `${msg.message}`;
+        textContainer.appendChild(user);
         textContainer.appendChild(text);
         message.appendChild(textContainer);
     }
@@ -56,21 +59,31 @@ if(messageInput) {
     messageInput.addEventListener('keyup', (event)=> {
         if(event.keyCode === 13) {
             if(messageInput.value) {
-                socket.send({message: messageInput.value, room: courseCode, id: socket.id});
-                let xhr = new XMLHttpRequest();
-                xhr.open('POST', `/course/${courseCode.replace(/ /g, '_')}`, true);
-                xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-                xhr.send(`chat=${messageInput.value}`);
+                fetch(`/course/${courseCode.replace(/ /g, '_')}`, {
+                    method: "POST",
+                    body: JSON.stringify({
+                        chat: messageInput.value
+                    }),
+                    headers: {
+                        'Content-type': 'application/json; charset=UTF-8'
+                    }
+                })
+                addSentMessage(`${messageInput.value}`);
+                fetch('/api/getuser').then(res => {
+                    res.json().then(data => {
+                        socket.send({message: messageInput.value, room: courseCode, id: socket.id, user: data.name});
+                        messageInput.value = "";
+                    })
+                })
             }
-            addSentMessage(`${messageInput.value}`);
-            messageInput.value = "";
+            
         }
     });
     
     socket.emit('join', courseCode);
 
     socket.on('chat', data => {
-        addRecivevedMessage(data.message);
+        addRecivevedMessage({message: data.message, user: data.user});
     });
 }
 

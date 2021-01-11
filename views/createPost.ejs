@@ -3,21 +3,25 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet" href="../css/createpost.css">
    <title>Document</title>
+   <link rel="stylesheet" href="/css/createpost.css">
+   <link rel="stylesheet" type="text/css" href="/css/style.css">
+   <link rel="preconnect" href="https://fonts.gstatic.com">
+   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
-   <a href="/">Main Page</a>
-   <form action="/createpost" method="POST">
-      <input type="text" name="title">
-      <textarea id="post" name="post" rows="20" cols="50"></textarea>
-      <select name="course_code">
-         <%courses.forEach(course => {%>
-            <option value="<%=course.course_code%>"><%=course.course_name%></option>
-         <%})%>
-      </select>
-      <button type="submit">POST</button>
-   </form>
-   <a href="/"><button>Go Back</button></a>
+   <div>
+      <a href="/"><button>Main Page</button></a>
+      <form action="/createpost" method="POST" class="form">
+         <input type="text" name="title" class="title">
+         <textarea class="post" name="post" rows="20" cols="50"></textarea>
+         <select name="course_code">
+            <%courses.forEach(course => {%>
+               <option value="<%=course.course_code%>"><%=course.course_name%></option>
+            <%})%>
+         </select>
+         <button type="submit">POST</button>
+      </form>
+   </div>
 </body>
 </html>

@@ -4,11 +4,14 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Document</title>
+   <link rel="stylesheet" type="text/css" href="/css/style.css">
+   <link rel="preconnect" href="https://fonts.gstatic.com">
+   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
    <%if(user.type === "admin") {%>
-      <button id="show-moderators"><h3>moderators</h3></button>
-      <button id="show-users"><h3>users</h3></button>
+      <button id="show-moderators">moderators</button>
+      <button id="show-users">users</button>
    <%}%>
    <a href="/"><h1>Home</h1></a>
    <%request.forEach(req => {%>
