@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>All blogs</title>
+   <link rel="stylesheet" type="text/css" href="/css/posts.css">
+   <link rel="stylesheet" type="text/css" href="/css/style.css">
+   <link rel="preconnect" href="https://fonts.gstatic.com">
+   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+   <a href="/"><h2>Main page</h2></a>
+   <!-- Searching for blogs -->
+   <div class="search-container">
+      <div class="search-bar-container">
+         <input type="text" class="search-bar" placeholder="search for a blog">
+      </div>
+      <div class="filter">
+         <%if(tags.length) {%>
+            <select id="tag">
+               <%tags.forEach(tag => {%>
+                  <option value="<%=tag%>"><%=tag%></option>
+               <%})%>
+            </select>
+         <%} else {%>
+            <h1>No Blogs Found!</h1>
+         <%}%>
+      </div>
+   </div>
+   
+   <!-- Showing the blogs -->
+   <div id="all-blogs">
+      <%blogs.forEach(blog => {%>
+         <a href="/blogs/<%=blog.id%>"><h3><%=blog.title%></h3></a>
+      <%})%>
+   </div>
+   <script type="text/javascript" src="js/blogs.js"></script>
+</body>
+</html>

@@ -14,6 +14,8 @@ const userInfoContainer = document.querySelector('.user-info-container');
 const infoChangeContainer = document.querySelector('.info-change-container');
 const passwordChangeContainer = document.querySelector('.password-change-container');
 const myPostsContainer = document.querySelector('.my-posts-container');
+const postDeleteButtons = document.querySelectorAll('.post-delete-button');
+const postDeletes = document.querySelectorAll('.post-delete');
 
 // Form validation and submit with AJAX
 userForm.addEventListener('submit', event => {
@@ -93,4 +95,22 @@ myPosts.addEventListener('click', event => {
    passwordChangeContainer.classList.add('hidden');
    myPostsContainer.classList.remove('hidden');
 });
+
+
+// Deleting user post
+postDeleteButtons.forEach((postDeleteButton, index) => {
+   postDeleteButton.addEventListener('click', event => {
+      fetch(`/post/delete`, {
+         method: "POST",
+         body: JSON.stringify({
+            id: postDeleteButton.value
+         }),
+         headers: {
+            'Content-type': 'application/json; charset=UTF-8'
+         }
+      })
+      postDeleteButton.remove();
+      postDeletes[index].remove();
+   })
+})
 

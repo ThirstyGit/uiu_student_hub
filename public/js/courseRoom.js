@@ -9,6 +9,8 @@ const moderate = document.querySelector('#moderate');
 const socket = io();
 const courseCode = window.location.href.split('/')[4].replace('_', ' ');
 
+// Scroll to the end of message at start
+message.scrollTo(0,message.scrollHeight);
 
 // Enrolling to a new course.
 if(enrollCourse) {
@@ -40,6 +42,7 @@ if(messageInput) {
         newMessage.appendChild(text);
         newMessageContainer.appendChild(newMessage);
         message.appendChild(newMessageContainer);
+        message.scrollTo(0,message.scrollHeight);
     }
 
     const addRecivevedMessage = (msg) => {
@@ -54,6 +57,7 @@ if(messageInput) {
         textContainer.appendChild(user);
         textContainer.appendChild(text);
         message.appendChild(textContainer);
+        message.scrollTo(0,message.scrollHeight);
     }
 
     messageInput.addEventListener('keyup', (event)=> {
@@ -76,7 +80,6 @@ if(messageInput) {
                     })
                 })
             }
-            
         }
     });
     

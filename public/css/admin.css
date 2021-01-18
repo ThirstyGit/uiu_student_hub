@@ -1,5 +1,31 @@
-.form {
-   width: 500px;
+.container {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+.search-suggestion {
+    background-color: rgba(255, 140, 148, .5);
+    margin: 0px;
+    padding: 10px;
+    width: 420px;
+    height: 35px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.suggestion-container {
+   position: absolute;
+   z-index: 1;
+}
+
+.search-suggestion:hover {
+   background-color:  rgba(255, 140, 148, .8);
+}
+
+.search-suggestion:focus {
+    background-color:rgba(255, 140, 148, .8);
+    outline: none;
 }
 
 label {

@@ -21,6 +21,8 @@
       </ul>
       <ul>
          <%if(user) {%>
+            <li><a href="/createpost">Create post.</a></li>
+            <li><a href="/createblog">Create Blog.</a></li>
             <li><a href="/logout">log out</a></li>
          <%} else {%>
             <li><a href="/login">log in</a></li>
@@ -28,18 +30,32 @@
          <%if(user && user.type === "admin") {%>
             <li><a href="/admin">admin</a></li>
          <%}%>
-         <li><a href="/posts">View all posts</a></li>
+         <li><a href="/posts">View posts</a></li>
+         <li><a href="/blogs">View blogs</a></li>
       </ul>
    </nav>
    <div class="sidebar sidebar-close">
       <h3>Please select a course</h3>
-      <%result.forEach(data => {%>
+      <%courses.forEach(data => {%>
          <a href="/course/<%=data.course_code.replace(/ /g, '_')%>"><h3><%=data.course_name%></h3></a>
       <%})%>
    </div>
    <div>
       <h1>Welcome to the student forum</h1>
-      <a href="/createpost"><h3>Create a post.</h3></a>
+      <div class="information-container">
+         <div class="blogs">
+            <h2>Recent Blogs</h2>
+            <%blogs.forEach(res => {%>
+               <a href="blogs/<%=res.id%>"><p class="title"><%=res.title%></p></a>
+            <%})%>
+         </div>
+         <div class="posts">
+            <h2>Recent Posts</h2>
+            <%posts.forEach(res => {%>
+               <a href="posts/<%=res.id%>"><p class="title"><%=res.title%></p></a>
+            <%})%>
+         </div>
+      </div>
    </div>
    <script type="text/javascript" src="js/index.js"></script>
 </body>

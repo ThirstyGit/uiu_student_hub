@@ -2,8 +2,7 @@
 const router = require('express').Router();
 const path = require('path');
 const db = require('../database/database.js');
-const loginRequired = require('../middlewares/verify').loginRequired;
-const enrolled = require('../middlewares/verify').enrolled;
+const {loginRequired, enrolled, authorizedUpdate} = require('../middlewares/verify');
 const bcrypt = require('bcrypt');
 
 // Setting a current Semester for testing which the admin can change in the future.
@@ -11,16 +10,30 @@ global.curSemester = 211;
 
 // Stundet Hub.
 router.get('/', (req, res)=> {
-   const sql = `SELECT * FROM courses`;
-   db.query(sql, (err, result) => {
+   const sql = `SELECT * FROM courses AS c`;
+   const sql2 = `SELECT * FROM blogs ORDER BY time DESC LIMIT 10`;
+   const sql3 = `SELECT * FROM posts ORDER BY time DESC LIMIT 10`;
+   db.query(sql, (err, courses) => {
       if(err) {
          console.log(err);
       }
-      let user = undefined;
-      if((req.session && req.session.userId)) {
-         user = req.user;
+      else {
+         db.query(sql2, (err, blogs) => {
+            if(err) {
+               console.log(err);
+            }
+            db.query(sql3, (err, posts) => {
+               if(err) {
+                  console.log(err);
+               }
+               let user = undefined;
+               if((req.session && req.session.userId)) {
+                  user = req.user;
+               }
+               res.render(path.join(__dirname + '/../') + 'views/index.ejs', {courses, blogs, posts, user});
+            })
+         })
       }
-      res.render(path.join(__dirname + '/../') + 'views/index.ejs', {result, user});
    })
 });
 
@@ -29,9 +42,9 @@ router.get('/', (req, res)=> {
 router.get('/user/:id', loginRequired, (req, res) => {
    // const sql = `SELECT * FROM users WHERE id = ${db.escape(req.params.id)}`;
    const sql = `SELECT * FROM users AS u
-               JOIN users_courses AS uc
+               LEFT JOIN users_courses AS uc
                ON u.id = uc.user_id
-               JOIN courses AS c
+               LEFT JOIN courses AS c
                ON uc.course_code = c.course_code
                WHERE u.id = ${db.escape(req.params.id)}`;
    const sql2 = `SELECT * FROM posts WHERE user_id = ${db.escape(req.params.id)}`;
@@ -156,8 +169,7 @@ router.get('/posts/:id', (req, res) => {
    })
 });
 
-
-// creating a comment.
+// creating a comment on a specific post.
 router.post('/posts/:id/createcomment', loginRequired, (req, res) => {
    if(req.user) {
       const sql = `INSERT INTO posts_comments(content, user_id, post_id, time)
@@ -174,6 +186,150 @@ router.post('/posts/:id/createcomment', loginRequired, (req, res) => {
       res.redirect('/login');
    }
 });
+
+router.get('/posts/:id/update', authorizedUpdate, (req, res) => {
+   const sql = `SELECT * FROM posts WHERE id = ${db.escape(req.params.id)}`;
+   db.query(sql, (err, result) => {
+      res.render(path.join(__dirname + '/../' + '/views/postsUpdate.ejs'), {post: result[0]});
+   })
+})
+
+router.post('/posts/:id/update', authorizedUpdate, (req, res) => {
+   const sql = `UPDATE posts SET title = ${db.escape(req.body.title)}, content = ${db.escape(req.body.post)} WHERE id = ${db.escape(req.params.id)}`;
+   db.query(sql, (err, result) => {
+      if(err) {
+         console.log(err);
+      }
+      res.redirect('/');
+   })
+})
+
+// Delete a specific post
+router.post('/post/delete', (req, res) => {
+   const sql = `DELETE FROM posts_comments where post_id = ${db.escape(req.body.id)}`;
+   db.query(sql, (err, result) => {
+      if(err) {
+         console.log(err);
+      }
+      else {
+         const sql2 = `DELETE FROM posts WHERE id = ${db.escape(req.body.id)}`;
+         db.query(sql2, (err, result) => {
+            if(err) {
+               console.log(err);
+            }
+         })
+      }
+   })
+})
+
+// To create a blog.
+router.get('/createblog', loginRequired, (req, res)=> {
+   const sql = `SELECT DISTINCT tag FROM blogs`;
+   db.query(sql, (err, result) => {
+      res.render(path.join(__dirname + '/../') + '/views/createBlog.ejs', {tags: result});
+   })
+});
+
+router.post('/createblog', (req, res) => {
+   const sql = `INSERT INTO blogs(user_id, content, time, title, tag)
+   VALUES(${req.user.id}, ${db.escape(req.body.post)}, now(), ${db.escape(req.body.title)}, ${db.escape(req.body.tag)})`
+   db.query(sql, (err, result) => {
+      if(err) {
+         console.log(err);
+      }
+   })
+   res.redirect('/');
+})
+
+// view all blogs.
+router.get('/blogs', (req, res) => {
+   const sql = `SELECT * FROM blogs`;
+   db.query(sql, (err, result) => {
+      if(err) {
+         console.log(err);
+         res.redirect('/');
+      }
+      else {
+         let tags = [];
+         result.forEach(res => {
+            if(!tags.includes(res.tag)) {
+               tags.push(res.tag);
+            }
+         })
+         res.render(path.join(__dirname + '/../') + '/views/blogs.ejs', {blogs: result, tags});
+      }
+   })
+})
+
+
+// viewing a sepcific blogs.
+router.get('/blogs/:id', (req, res) => {
+   const sqlComments = `SELECT content, time, (
+      SELECT name FROM users AS us WHERE us.id = co.user_id
+   ) AS name
+   FROM blogs_comments AS co
+   WHERE blog_id = ${db.escape(req.params.id)}`;
+   let comments = [];
+   db.query(sqlComments, (err, result) => {
+      if(err) {
+         console.log(err);
+         res.redirect('/blogs');
+      }
+      else {
+         result.forEach((data) => {
+            comments.push({content : data.content, name: data.name, time: data.time});
+         })
+      }
+   })
+   const sqlBlog = `SELECT content, id, title, time, user_id FROM blogs WHERE id = ${db.escape(req.params.id)}`;
+   db.query(sqlBlog, (err, result) => {
+      if(err) {
+         console.log(err);
+         res.redirect('/');
+      }
+      else {
+         res.render(path.join(__dirname + '/../' + '/views/blog.ejs'), {blog: result[0], comments});
+      }
+   })
+});
+
+
+// creating a comment on a specific post.
+router.post('/blogs/:id/createcomment', loginRequired, (req, res) => {
+   if(req.user) {
+      const sql = `INSERT INTO blogs_comments(content, user_id, blog_id, time)
+            VALUES(${db.escape(req.body.comment_content)}, ${req.user.id}, ${db.escape(req.body.blog_id)}, NOW())`;
+      db.query(sql, (err, result) => {
+         if(err) {
+            console.log(err);
+            res.send('Error creating a comment.');
+         }
+      })
+      res.redirect(`/blogs/${req.body.blog_id}`);
+   }
+   else {
+      res.redirect('/login');
+   }
+});
+
+// Delete a specific blog
+router.post('/blog/delete', (req, res) => {
+   const sql = `DELETE FROM blogs_comments WHERE blog_id = ${db.escape(req.body.id)}`;
+   db.query(sql, (err, result) => {
+      if(err) {
+         console.log(err);
+      }
+      else {
+         const sql2 = `DELETE FROM blogs WHERE id = ${db.escape(req.body.id)}`;
+         db.query(sql2, (err, result) => {
+            if(err) {
+               console.log(err);
+            }
+         })
+      }
+   })
+})
+
 
 
 router.get('/course/:id', loginRequired, enrolled, (req, res) => {

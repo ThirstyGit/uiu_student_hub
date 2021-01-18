@@ -12,7 +12,7 @@ function filterResults(str) {
       res.json().then(datas => {
          // <a href="/posts/<%=post.id%>"><h3><%=post.title%></h3></a>
          datas.forEach(data => {
-            console.log(data);
+            // console.log(data);
             if(data.semester === Number(semester.value) && data.course_code === courses.value) {
                const a = document.createElement('a');
                const h3 = document.createElement('h3');

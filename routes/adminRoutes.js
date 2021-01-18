@@ -20,12 +20,20 @@ router.post('/addcourses', (req, res) => {
          console.log(err);
       }
    })
-   // console.log(req.body);
-   res.send(
-      `<p>Course added!</p>
-       <a href='/admin/addcourses'><button>Add more.</button></a>
-      `
-   )
+})
+
+router.post('/setsemester', (req, res) => {
+   global.curSemester = req.body.semester
+})
+
+router.post('/deleteuser', (req, res) => {
+   console.log('here');
+   const sql = `DELETE FROM users WHERE id = ${db.escape(req.body.id)}`;
+   db.query(sql, (err, result) => {
+      if(err) {
+         console.log(err);
+      }
+   })
 })
 
 module.exports = router;

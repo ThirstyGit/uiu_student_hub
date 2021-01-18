@@ -11,18 +11,48 @@
 </head>
 <body>
    <a href="/"><h2>Home</h2></a>
-   <form action="/admin/addcourses" method="post" class="form">
-      <!-- This should be able to add many courses.
-            courses will be added to a cookie with
-            add button instead of submitting.
-            There will be an extra submit button
-            at that time.-->
+   <div class="container">
       <label>Course Code</label>
-      <input name="courseCode" type="text">
+      <input name="courseCode" type="text" id="course-code" placeholder="Course Code">
       <label>Course Name</label>
-      <input name="courseName" type="text">
-      <button type="submit">Add course</button>
-   </form>
+      <input name="courseName" type="text" id="course-name" placeholder="Course Name">
+      <button id="add-course">Add course</button>
+   </div>
+   <div class="container">
+      <label>Set Semester</label>
+      <input type="text" id="semester" placeholder="Semester">
+      <button id="set-semester">Set Semester</button>
+   </div>
+   <div class="container">
+      <label>Search User</label>
+      <input type="text" id="search-bar" placeholder="Search for a User">
+      <div class="container" id="user-container">
+         <div class="suggestion-container" id="suggestion-container">
+            
+         </div>
+         <div id="user">
+            
+         </div>
+      </div>
+   </div>
+   <div class="container">
+      <label>Search Post</label>
+      <div class="search-bar-container">
+         <input type="text" class="post-search-bar" placeholder="search for a post">
+      </div>
+      <div id="searched-posts">
+         
+      </div>
+   </div>
+   <div class="container">
+      <label>Search Blog</label>
+      <div class="search-bar-container">
+         <input type="text" class="blog-search-bar" placeholder="search for a blog">
+      </div>
+      <div id="searched-blogs">
+         
+      </div>
+   </div>
    <script type="text/javascript" src="js/admin.js"></script>
 </body>
 </html>

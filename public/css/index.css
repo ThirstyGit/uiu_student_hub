@@ -14,6 +14,14 @@ ul li {
    cursor: pointer;
 }
 
+nav {
+   display: inline-block;
+   background-color: rgb(32, 182, 132);
+   margin: 0px;
+   display: flex;
+   justify-content: space-between;
+}
+
 a:hover {
    color: rgba(0, 0, 0, 0.5);
 }
@@ -41,15 +49,17 @@ a:hover {
    cursor: pointer;
 }
 
-nav {
-   display: inline-block;
-   background-color: rgb(32, 182, 132);
-   margin: 0px;
-   display: flex;
-   justify-content: space-between;
-}
-
 .button {
    display: inline-block;
+}
+
+.information-container {
+   display: flex;
+   justify-content: space-evenly;
+   margin: 40px;
+}
+
+.title {
+   font-size: 30px;
 }
 

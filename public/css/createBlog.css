@@ -1,0 +1,26 @@
+option {
+   width: auto;
+   font-size: 20px;
+}
+
+select {
+   height: 40px;
+   font-size: 20px;
+}
+
+.post {
+   resize: none;
+   font-size: 20px;
+}
+
+.form {
+   width: auto;
+   display: flex;
+   flex-direction: column;
+   margin: 0% 2% 0% 0%;
+}
+
+.text-input {
+   width: 99%;
+   margin: 0% 0% 2% 0%;
+}

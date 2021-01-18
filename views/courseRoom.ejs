@@ -23,13 +23,14 @@
                <%posts.forEach(post => {%>
                   <%if(post.user_id === user.id) {%>
                      <div class="sender-message-container">
+                        <p class="sender-time"><%=post.time.toLocaleString()%></p>
                         <div class="sender-message">
                            <p><%=post.chat%></p>
                         </div>
                      </div>
                   <%} else {%>
                      <div class="recieved-message-container">
-                        <p class="recieved-user"><%=post.name%></p>
+                        <p class="recieved-user"><%=post.name%> <%=post.time.toLocaleString()%></p>
                         <p class="recieved-message"><%=post.chat%></p>
                      </div>
                   <%}%>

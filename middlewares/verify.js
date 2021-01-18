@@ -58,6 +58,18 @@ module.exports.moderator = (req, res, next) => {
    }
 }
 
+module.exports.authorizedUpdate = (req, res, next) => {
+   const sql = `SELECT user_id FROM posts WHERE id = ${db.escape(req.params.id)}`;
+   db.query(sql, (err, result) => {
+      if(result && result[0] && result[0].user_id === req.user.id) {
+         next();
+      }
+      else {
+         res.redirect('/');
+      }
+   })
+}
+
 module.exports.enrolled = (req, res, next) => {
    const sql = `SELECT * FROM users_courses WHERE user_id = ${req.user.id} && course_code = ${db.escape(req.params.id.replace(/_/g, ' '))}`;
    db.query(sql, (err, result) => {
@@ -89,3 +101,5 @@ module.exports.enrolled = (req, res, next) => {
       next();
    })
 }
+
+
