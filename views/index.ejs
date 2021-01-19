@@ -8,6 +8,7 @@
    <link rel="stylesheet" type="text/css" href="/css/style.css">
    <link rel="preconnect" href="https://fonts.gstatic.com">
    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600&family=Ubuntu&display=swap" rel="stylesheet">
 </head>
 <body>
    <nav>
@@ -40,7 +41,7 @@
       <div class="sidebar sidebar-close">
          <h3>Please select a course</h3>
          <%courses.forEach(data => {%>
-            <a href="/course/<%=data.course_code.replace(/ /g, '_')%>"><h3><%=data.course_name%></h3></a>
+            <a href="/course/<%=data.course_code.replace(/ /g, '_')%>"><p><%=data.course_name%></p></a>
          <%})%>
       </div>
       <div class="main-contents">

@@ -1,12 +1,18 @@
+* {
+   font-family: 'Roboto', sans-serif;
+   outline: none;
+}
+
+
 body{
-    background: linear-gradient(to right, #b993d6, #8ca6db);
+    background: linear-gradient(to right, rgba(95,209,249,1), #8ca6db);
     font-family: 'Roboto', sans-serif;
 }
 
 button {
     width: 280px;
     height: 50px;
-    background-color: #26cc6e;
+    background-color: #a0befa;
     outline: none;
     border: 0px;
     font-size: 25px;
@@ -15,7 +21,7 @@ button {
     font-weight: bold;
 }
 button:hover{
-    background-color: #40e286;
+    background-color:#b4c9f3;
     cursor: pointer;
 }
 

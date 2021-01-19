@@ -11,6 +11,14 @@ p {
     color: rgb(131, 102, 64);
 }
 
+button {
+    background-color: #26cc6e;
+}
+
+button:hover {
+    background-color: #40e286;
+}
+
 .form-container{
     background-color: rgb(161, 250, 208);
     width: 400px;
