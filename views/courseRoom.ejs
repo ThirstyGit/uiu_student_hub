@@ -25,9 +25,7 @@
                   <%if(post.user_id === user.id) {%>
                      <div class="sender-message-container">
                         <p class="sender-time"><%=post.time.toLocaleString()%></p>
-                        <div class="sender-message">
-                           <p><%=post.chat%></p>
-                        </div>
+                        <p class="sender-message"><%=post.chat%></p>
                      </div>
                   <%} else {%>
                      <div class="recieved-message-container">

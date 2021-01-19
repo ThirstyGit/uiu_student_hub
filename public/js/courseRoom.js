@@ -40,15 +40,17 @@ if(message) {
 // Message part.
 if(messageInput) {
     const addSentMessage = (msg) => {
+        const time  = document.createElement('p');
         const text  = document.createElement('p');
-        const newMessage  = document.createElement('div');
         const newMessageContainer  = document.createElement('div');
-        newMessage.classList.add("sender-message");
         newMessageContainer.classList.add("sender-message-container");
+        time.classList.add('sender-time');
+        time.innerText = new Date().toLocaleString();
         text.innerText = `${msg}`;
-        newMessage.appendChild(text);
-        newMessageContainer.appendChild(newMessage);
-        message.appendChild(newMessageContainer);
+        text.classList.add('sender-message');
+        newMessageContainer.appendChild(time);
+        newMessageContainer.appendChild(text);
+        message.appendChild(newMessageContainer)
         message.scrollTo(0,message.scrollHeight);
     }
 
@@ -56,7 +58,7 @@ if(messageInput) {
         const user = document.createElement('p');
         const text  = document.createElement('p');
         const textContainer  = document.createElement('div');
-        user.innerText = msg.user;
+        user.innerText = `${msg.user} ${new Date().toLocaleString()}`;
         textContainer.classList.add("recieved-message-container");
         user.classList.add('recieved-user')
         text.classList.add('recieved-message')

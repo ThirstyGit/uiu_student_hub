@@ -14,9 +14,15 @@
 }
 .sender-message-container {
     display: flex;
-    justify-content: flex-end;
+    align-items: flex-end;
+    flex-direction: column;
     margin: 0px;
 }
+
+.sender-time {
+    font-weight: 1000;
+}
+
 .sender-message {
     display: flex;
     justify-content: flex-end;
@@ -26,7 +32,7 @@
 }
 
 .sender-time {
-    fo
+    font-size: 15px;
 }
 
 .recieved-message-container {
