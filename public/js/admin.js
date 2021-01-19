@@ -98,7 +98,7 @@ const getUserSuggestion = () => {
 
 
 // Adding Course using AJAX
-addCourse.addEventListener('clicl', event => {
+addCourse.addEventListener('click', event => {
    fetch(`/admin/addcourses`, {
       method: "POST",
       body: JSON.stringify({
