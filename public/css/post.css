@@ -9,3 +9,28 @@ p {
 }
 
 
+.content {
+   font-size: 30px;
+}
+
+.content-container {
+   margin: 0px 0px 0px 20px;
+   width: 80vw;
+}
+
+.comment-container {
+   width: 80vw;
+}
+
+.comment-form {
+   display: flex;
+   flex-direction: column;
+   width: 80vw;
+}
+
+.main-container {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+

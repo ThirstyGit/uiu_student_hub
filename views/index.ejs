@@ -11,8 +11,10 @@
 </head>
 <body>
    <nav>
-      <ul>
-         <li id="hamburger">&#9776;</li>
+      <ul class="nav-left">
+         <li class="hamburger" id="hamburger">&#9776;</li>
+      </ul>
+      <ul class="nav-left">
          <%if(user) {%>
             <li>
                <a href="/user/<%=user.id%>"><%=user.name%></a>

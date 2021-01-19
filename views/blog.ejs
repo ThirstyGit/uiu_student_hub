@@ -8,23 +8,27 @@
       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
    </head>
    <body>
-         <a href="/"><h3>Main page</h3></a>
-         <a href="/blogs"><h3>View all blogs</h3></a>
-         <h2><%=blog.title%></h2>
-         <h3><%=blog.time.toDateString()%></h3>
-         <p><%=blog.content%></p>
-         <form action="/blogs/:id/createcomment" method="POST">
-            <textarea name="comment_content" rows="10" cols="70" class="comment-box"></textarea>
-            <input type="text" id="blog_id" name="blog_id" value="<%=blog.id%>" hidden>
-            <input type="text" id="user_id" name="user_id" value="<%=blog.user_id%>" hidden>
-            <button type="submit">comment</button>
-         </form>
-         <div id="comment-container">
-            <%comments.forEach(comment => {%>
-               <h3><%=comment.name%></h3>
-               <p><%=comment.time.toDateString()%> <%=comment.time.getHours()%>:<%=comment.time.getMinutes()%></p>
-               <p><%=comment.content%></p>
-            <%})%>
+         <a href="/"><button>Main page</button></a>
+         <a href="/blogs"><button>View all blogs</button></a>
+         <div class="main-container">
+            <div class="content-container">
+               <h2><%=blog.title%></h2>
+               <h3><%=blog.time.toDateString()%></h3>
+               <p class="content"><%=blog.content%></p>
+            </div>
+            <form class="comment-form" action="/blogs/:id/createcomment" method="POST">
+               <textarea name="comment_content" rows="10" cols="70" class="comment-box"></textarea>
+               <input type="text" id="blog_id" name="blog_id" value="<%=blog.id%>" hidden>
+               <input type="text" id="user_id" name="user_id" value="<%=blog.user_id%>" hidden>
+               <button type="submit">comment</button>
+            </form>
+            <div class="comment-container">
+               <%comments.forEach(comment => {%>
+                  <h3><%=comment.name%></h3>
+                  <p><%=comment.time.toDateString()%> <%=comment.time.getHours()%>:<%=comment.time.getMinutes()%></p>
+                  <p><%=comment.content%></p>
+               <%})%>
+            </div>
          </div>
    <body>
 </html>
