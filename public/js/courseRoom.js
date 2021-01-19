@@ -3,6 +3,7 @@ const message = document.querySelector('.message-box');
 const messageInput = document.querySelector('.message-input');
 const enrollCourse = document.querySelector('#enroll-course')
 const moderate = document.querySelector('#moderate');
+const files = document.querySelector('#files');
 
 
 // Declarations.
@@ -10,7 +11,9 @@ const socket = io();
 const courseCode = window.location.href.split('/')[4].replace('_', ' ');
 
 // Scroll to the end of message at start
-message.scrollTo(0,message.scrollHeight);
+if(message) {
+    message.scrollTo(0,message.scrollHeight);
+}
 
 // Enrolling to a new course.
 if(enrollCourse) {
@@ -25,7 +28,11 @@ if(enrollCourse) {
 if(moderate) {
     moderate.addEventListener('click', event => {
         window.location.href = window.location.href + '/moderate';
-        console.log(window.location.href);
+    })
+}
+if(message) {
+    files.addEventListener('click', event => {
+        window.location.href = window.location.href + '/files';
     })
 }
 

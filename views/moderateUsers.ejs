@@ -7,10 +7,14 @@
    <link rel="stylesheet" type="text/css" href="/css/style.css">
    <link rel="preconnect" href="https://fonts.gstatic.com">
    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+   <link rel="stylesheet" type="text/css" href="/css/moderateUsers.css">
 </head>
 <body>
    <a href="/"><button>HOME</button></a>
-   <div>
+   <div class="search-container">
+      <input type="text" id="moderate-searchbar">
+   </div>
+   <div class="users-container">
       <% users.forEach( user => { %>
          <h3><%=user.name%></h3>
          <%if(user.moderator === 'false') {%>
@@ -26,6 +30,6 @@
          <%}%>
       <%})%>
    </div>
-   <link rel="stylesheet" type="text/css" href="/css/moderateUsers.css">
+   <script type="text/javascript" src="/js/moderateUsers.js"></script>
 </body>
 </html>

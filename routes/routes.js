@@ -4,6 +4,18 @@ const path = require('path');
 const db = require('../database/database.js');
 const {loginRequired, enrolled, authorizedUpdate} = require('../middlewares/verify');
 const bcrypt = require('bcrypt');
+const multer = require('multer');
+
+// Storage Engine
+const storage = multer.diskStorage({
+   destination: function(req, file, cb) {
+      cb(null, './public/images')
+   },
+   filename: function(req, file, cb) {
+      cb(null, Date.now() + file.originalname);
+   }
+})
+const upload = multer({storage});
 
 // Setting a current Semester for testing which the admin can change in the future.
 global.curSemester = 211;
@@ -380,6 +392,24 @@ router.get('/course/:id/moderate', loginRequired, (req, res) => {
       }
       res.render(path.join(__dirname + '/../' + '/views/moderate.ejs'), {request: result});
    })
+})
+
+router.get('/course/:id/files', loginRequired, (req, res) => {
+   const sql = `SELECT * FROM courses_files WHERE course_code = ${db.escape(req.params.id).replace(/_/g, ' ')}`;
+   db.query(sql, (err, files) => {
+      res.render(path.join(__dirname + '/../' + '/views/coursefiles.ejs'), {files});
+   })
+})
+
+router.post('/course/:id/files', loginRequired, upload.single('file'), (req, res) => {
+   const sql = `INSERT INTO courses_files(user_id, file_type, file, course_code)
+                                    VALUES(${req.user.id}, ${db.escape(req.file.mimetype)}, ${db.escape(req.file.filename)}, ${db.escape(req.params.id).replace(/_/g, ' ')})`;
+   db.query(sql, (err, result) => {
+      if(err) {
+         console.log(err);
+      }
+   })
+   res.redirect('/');
 })
 
 router.post("/moderate", (req, res) => {

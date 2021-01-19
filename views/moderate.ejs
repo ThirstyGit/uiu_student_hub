@@ -9,11 +9,11 @@
    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
+   <a href="/"><button>Home</button></a>
    <%if(user.type === "admin") {%>
       <button id="show-moderators">moderators</button>
       <button id="show-users">users</button>
    <%}%>
-   <a href="/"><h1>Home</h1></a>
    <%request.forEach(req => {%>
       <h3><%=req.user_id%></h3>
       <h3><%=req.course_code%></h3>

@@ -12,6 +12,8 @@ const searchedPosts = document.querySelector('#searched-posts');
 const postSearchBar = document.querySelector('.post-search-bar');
 const searchedBlogs = document.querySelector('#searched-blogs');
 const blogSearchBar = document.querySelector('.blog-search-bar');
+const userPosts = document.querySelector('.user-posts');
+const userBlogs = document.querySelector('.user-blogs');
 
 // Declaration
 let timeoutId;
@@ -26,12 +28,12 @@ const clearSearchSuggestion = () => {
 }
 
 const selectSuggestion = data => {
-   searchBar.value = data.name
+   searchBar.value = data.name;
    fetch(`/api/getuser/${data.id}`)
    .then(res => {
       res.json().then(datas => {
          clearSearchSuggestion();
-         addUser(datas[0]);
+         addUser(datas);
       })
    })
 }
@@ -44,15 +46,17 @@ const removeUser = () => {
 
 const addUser = (userInfo) => {
    removeUser();
+   // Adding initial data about the user.
    const h1 = document.createElement('h1');
    const button = document.createElement('button');
-   h1.innerText = userInfo.name;
+   h1.innerText = userInfo[0].name;
+   console.log(userInfo);
    button.innerText = 'Delete';
    button.addEventListener('click', event => {
       fetch(`/admin/deleteuser`, {
          method: "POST",
          body: JSON.stringify({
-            id: userInfo.id
+            id: userInfo[0].id
          }),
          headers: {
             'Content-type': 'application/json; charset=UTF-8'
