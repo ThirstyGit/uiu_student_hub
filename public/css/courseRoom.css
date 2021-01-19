@@ -1,3 +1,7 @@
+p {
+    margin: 0px;
+}
+
 .message-input {
     display: inline;
     width: 100%;
@@ -26,7 +30,7 @@
 .sender-message {
     display: flex;
     justify-content: flex-end;
-    width: 350px;
+    width: 80%;
     margin: 0px;
     font-size: 30px;
 }
@@ -36,7 +40,7 @@
 }
 
 .recieved-message-container {
-    width: 350px;
+    margin: 20px 0px;
 }
 
 .recieved-user {
@@ -46,8 +50,12 @@
 
 .recieved-message {
     font-size: 30px;
+    width: 80%;
 }
 
-p {
-    margin: 0px;
+.navigation-buttons {
+    display: flex;
+}
+.navigation-buttons button {
+    margin: 20px 0px 40px 0px;
 }

@@ -12,12 +12,17 @@
 </head>
 <body>
    <div>
-      <%if(user.type === "admin" || moderator) {%>
-         <button id="moderate">Moderate</button>
-      <%}%>
+      <div class="navigation-buttons">
+         <%if(status === true || status === "moderator") {%>
+            <a href="/"><button>Home Page</button></a>
+            <button id="files">Files</button>
+         <%}%>
+         <%if(user.type === "admin" || moderator) {%>
+            <button id="moderate">Moderate</button>
+         <%}%>
+      </div>
+      
       <%if(status === true || status === "moderator") {%>
-         <a href="/"><button>Home Page</button></a>
-         <button id="files">Files</button>
          <h1>Welcome to our course room</h1>
          <div class="message-container">
             <div class="message-box">

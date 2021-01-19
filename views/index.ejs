@@ -34,26 +34,28 @@
          <li><a href="/blogs">View blogs</a></li>
       </ul>
    </nav>
-   <div class="sidebar sidebar-close">
-      <h3>Please select a course</h3>
-      <%courses.forEach(data => {%>
-         <a href="/course/<%=data.course_code.replace(/ /g, '_')%>"><h3><%=data.course_name%></h3></a>
-      <%})%>
-   </div>
-   <div>
-      <h1>Welcome to the student forum</h1>
-      <div class="information-container">
-         <div class="blogs">
-            <h2>Recent Blogs</h2>
-            <%blogs.forEach(res => {%>
-               <a href="blogs/<%=res.id%>"><p class="title"><%=res.title%></p></a>
-            <%})%>
-         </div>
-         <div class="posts">
-            <h2>Recent Posts</h2>
-            <%posts.forEach(res => {%>
-               <a href="posts/<%=res.id%>"><p class="title"><%=res.title%></p></a>
-            <%})%>
+   <div class="main-contents-body">
+      <div class="sidebar sidebar-close">
+         <h3>Please select a course</h3>
+         <%courses.forEach(data => {%>
+            <a href="/course/<%=data.course_code.replace(/ /g, '_')%>"><h3><%=data.course_name%></h3></a>
+         <%})%>
+      </div>
+      <div class="main-contents">
+         <h1>Welcome to the student forum</h1>
+         <div class="information-container">
+            <div class="blogs">
+               <h2>Recent Blogs</h2>
+               <%blogs.forEach(res => {%>
+                  <a href="blogs/<%=res.id%>"><p class="title"><%=res.title%></p></a>
+               <%})%>
+            </div>
+            <div class="posts">
+               <h2>Recent Posts</h2>
+               <%posts.forEach(res => {%>
+                  <a href="posts/<%=res.id%>"><p class="title"><%=res.title%></p></a>
+               <%})%>
+            </div>
          </div>
       </div>
    </div>
