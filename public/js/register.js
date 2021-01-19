@@ -1,6 +1,7 @@
 // Selecting necessary elements.
 const form = document.querySelector('.form');
 const name = document.querySelector('#name')
+const id = document.querySelector('#id');
 const email = document.querySelector('#email')
 const password = document.querySelector('#password')
 const passwordConfirm = document.querySelector('#password-confirm')
@@ -10,6 +11,9 @@ const register = document.querySelector('#register');
 register.addEventListener("click", ()=> {
     if(name.value.length < 6) {
         alert("Name is too short!");
+    }
+    else if(!id.value.match(/(\d\d\d[0-9][0-9][1-3][0-9][0-9][0-9])/)) {
+        alert('Please give a valid ID');
     }
     else if(!email.value.match(/(^.+@.+\.com$)/)) {
         alert("Please give a valid email.");

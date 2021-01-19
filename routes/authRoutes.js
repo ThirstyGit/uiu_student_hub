@@ -57,8 +57,8 @@ router.post('/register', (req, res) => {
          else {
             req.body.password = bcrypt.hashSync(req.body.password, 14);
             // Explicitly type is set to admin for testing. Should let the default value handle user type.
-            const sql = `INSERT INTO users(department, DOB, email, name, password, phone)
-                              VALUES('${req.body.department}', ${db.escape(req.body.date)}, ${db.escape(req.body.email)}, ${db.escape(req.body.name)}, ${db.escape(req.body.password)}, ${db.escape(req.body.phone)})`;
+            const sql = `INSERT INTO users(department, DOB, email, name, university_id,  password, phone)
+                              VALUES('${req.body.department}', ${db.escape(req.body.date)}, ${db.escape(req.body.email)}, ${db.escape(req.body.name)}, ${db.escape(req.body.id)}, ${db.escape(req.body.password)}, ${db.escape(req.body.phone)})`;
             db.query(sql, (error, result) => {
                if(error) {
                   console.log(error);
