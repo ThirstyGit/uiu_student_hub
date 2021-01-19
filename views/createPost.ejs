@@ -13,8 +13,8 @@
    <div>
       <a href="/"><button>Main Page</button></a>
       <form action="/createpost" method="POST" class="form">
-         <input type="text" name="title" class="title">
-         <textarea class="post" name="post" rows="20" cols="50"></textarea>
+         <input type="text" name="title" class="title" placeholder="title">
+         <textarea class="post" name="post" rows="20" cols="50" placeholder="Type your post here..."></textarea>
          <select name="course_code">
             <%courses.forEach(course => {%>
                <option value="<%=course.course_code%>"><%=course.course_name%></option>

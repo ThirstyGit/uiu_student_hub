@@ -13,14 +13,14 @@
    <div>
       <a href="/"><button>Main Page</button></a>
       <form action="/createblog" method="POST" class="form">
-         <input type="text" id="title" name="title" class="text-input">
-         <textarea class="post" name="post" rows="20" cols="50"></textarea>
+         <input type="text" id="title" name="title" class="text-input" placeholder="title">
+         <textarea class="post" name="post" rows="20" cols="50" placeholder="Type your blog here..."></textarea>
          <select id="tag-select">
             <%tags.forEach(tag => {%>
                <option value="<%=tag.tag%>"><%=tag.tag%></option value="<%=tag%>">
             <%})%>
          </select>
-         <input type="text" id="tag" name="tag" class="text-input hidden">
+         <input type="text" id="tag" name="tag" class="text-input hidden" placeholder="Give a new tag.">
          <button type="button" id="tag-button">Other Tag</button>
          <button id="post-button" type="button">Make blog</button>
       </form>

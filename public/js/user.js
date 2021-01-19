@@ -15,6 +15,7 @@ const infoChangeContainer = document.querySelector('.info-change-container');
 const passwordChangeContainer = document.querySelector('.password-change-container');
 const myPostsContainer = document.querySelector('.my-posts-container');
 const postDeleteButtons = document.querySelectorAll('.post-delete-button');
+const postUpdateButtons = document.querySelectorAll('.post-update-button');
 const postDeletes = document.querySelectorAll('.post-delete');
 
 // Form validation and submit with AJAX
@@ -110,6 +111,7 @@ postDeleteButtons.forEach((postDeleteButton, index) => {
          }
       })
       postDeleteButton.remove();
+      postUpdateButtons[index].remove();
       postDeletes[index].remove();
    })
 })

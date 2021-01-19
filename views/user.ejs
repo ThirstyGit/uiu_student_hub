@@ -63,7 +63,7 @@
       <div class="my-posts-container hidden">
          <%posts.forEach(post => {%>
             <a href="/posts/<%=post.id%>" class="post-delete"><h3><%=post.title%></h3></a>
-            <a href="/posts/<%=post.id%>/update"><button>Update</button></a>
+            <a href="/posts/<%=post.id%>/update" class="post-update-button"><button>Update</button></a>
             <button value="<%=post.id%>" class="post-delete-button">DELETE</button>
          <%})%>
       </div>
