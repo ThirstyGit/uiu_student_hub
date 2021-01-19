@@ -169,7 +169,13 @@ router.get('/posts/:id', (req, res) => {
          })
       }
    })
-   const sqlPost = `SELECT content, id, title, time, user_id FROM posts WHERE id = ${db.escape(req.params.id)}`;
+   const sqlPost = `SELECT p.content, p.id, p.title, p.time, p.user_id, (
+                        SELECT u.name
+                        FROM users AS u
+                        WHERE u.id = p.user_id
+                     ) AS name
+                     FROM posts AS p WHERE
+                     p.id = ${db.escape(req.params.id)}`;
    db.query(sqlPost, (err, result) => {
       if(err) {
          console.log(err);
@@ -293,7 +299,13 @@ router.get('/blogs/:id', (req, res) => {
          })
       }
    })
-   const sqlBlog = `SELECT content, id, title, time, user_id FROM blogs WHERE id = ${db.escape(req.params.id)}`;
+   const sqlBlog = `SELECT b.content, b.id, b.title, b.time, b.user_id, (
+                        SELECT u.name
+                        FROM users AS u
+                        WHERE u.id = b.user_id
+                     ) AS name
+                     FROM blogs AS b
+                     WHERE b.id = ${db.escape(req.params.id)}`;
    db.query(sqlBlog, (err, result) => {
       if(err) {
          console.log(err);

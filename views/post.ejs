@@ -13,6 +13,7 @@
          <div class="main-container">
             <div class="content-container">
                <h2><%=post.title%></h2>
+               <h3>Post by <%=post.name%></h3>
                <h3><%=post.time.toDateString()%></h3>
                <p class="content"><%=post.content%></p>
             </div>
@@ -26,7 +27,7 @@
                <%comments.forEach(comment => {%>
                   <h3><%=comment.name%></h3>
                   <p><%=comment.time.toDateString()%> <%=comment.time.getHours()%>:<%=comment.time.getMinutes()%></p>
-                  <p><%=comment.content%></p>
+                  <p class="comment-content"><%=comment.content%></p>
                <%})%>
             </div>
          </div>
